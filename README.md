@@ -1,2 +1,2 @@
 # Tetris
-ICS4U final project
+ICS3U final project
