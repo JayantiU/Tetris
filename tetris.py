@@ -4,11 +4,6 @@
 #without any gaps.
 
 
-#TO DO LIST:
-# rotation check
-# put together game function (main function where game is actually played) + debug 
-# add pause, finish instructions and settings page
-
 
 #-----IMPORTS-----#
 from pygame import * 
@@ -69,9 +64,7 @@ def drawGrid(grid):
         x=75
 
 def rotate(shape):
-    '''Rotates the shape
-    This exact line of code is a very pythonic way to rotate matricies and was taken from:
-    https://a.wordpress.com/2014/08/28/python-rotate-2d-arraymatrix-90-degrees-one-liner/''' 
+    '''Rotates the shape'''
     shape=list(zip(*shape[::-1]))     
     return shape
             
@@ -172,31 +165,17 @@ def rotateCheck(grid,shape,i,j):
                     return True
     return False
 
-##def onBoard(shape,x,y):
-##    '''Returns true if the x,y coordiates of the shape is not less
-##    than the height of the board and not less than the width of the board'
-##    and also not greater than the board. This means it's one the board. False
-##    is returned otherwise'''
-##    for i in range(len(shape)): #y-axis 
-##        for j in range(len(shape[0])): #x-axis
-##            if j+x>=0 and j+x<15 and y+i<19:
-##                return True
-##    return False
+def onBoard(shape,x,y):
+    '''Returns true if the x,y coordiates of the shape is not less
+      than the height of the board and not less than the width of the board'
+      and also not greater than the board. This means it's one the board. False
+      is returned otherwise'''
+    for i in range(len(shape)): #y-axis 
+        for j in range(len(shape[0])): #x-axis
+            if j+x>=0 and j+x<15 and y+i<19:
+                return True
+    return False
 
-##def validPos(board,shape,x,y,direction):
-##    'Returns True if the shape is on board' 
-##    for i in range(len(shape)): #y -axis 
-##        for j in range(len(shape[0])): #x-axis 
-##            if direction=='left':
-##                if j+x>2 and j+x<16 and i+y-1<20: #j+x>0 
-##                    return True 
-##            elif direction=='right':
-##                if j+x+1>0 and j+x+1<16 and i+y<20:
-##                    return True
-##            elif direction=='down':
-##                if j+x>0 and j+x<16 and i+y+1<20:
-##                    return True
-##    return False
 
 def validPos(board,shape,x,y,direction):
     'Returns True if the shape is on board' 
@@ -226,16 +205,16 @@ def newGame(grid,level,score):
     score=0
     i,j=0,8
     
-##def shapesImg():
-##    'Loading the shapes that will be displayed'
-##    shape1=transform.scale(image.load('shape1.png'),(70,70))
-##    shape2=transform.scale(image.load('shape2.png'),(70,70))
-##    shape3=transform.scale(image.load('shape3.png'),(70,70))
-##    shape4=transform.scale(image.load('shape4.png'),(70,70))
-##    shape5=transform.scale(image.load('shape5.png'),(70,70))
-##    shape6=transform.scale(image.load('shape6.png'),(70,70))
-##    shape7=transform.scale(image.load('shape7.png'),(70,70))
-##    return [shape1,shape2,shape3,shape4,shape5,shape6]
+def shapesImg():
+    'Loading the shapes that will be displayed'
+    shape1=transform.scale(image.load('shape1.png'),(70,70))
+    shape2=transform.scale(image.load('shape2.png'),(70,70))
+    shape3=transform.scale(image.load('shape3.png'),(70,70))
+    shape4=transform.scale(image.load('shape4.png'),(70,70))
+    shape5=transform.scale(image.load('shape5.png'),(70,70))
+    shape6=transform.scale(image.load('shape6.png'),(70,70))
+    shape7=transform.scale(image.load('shape7.png'),(70,70))
+    return [shape1,shape2,shape3,shape4,shape5,shape6]
     
 def blocks():
     'Loading the individual blocks that make up a piece'
@@ -297,8 +276,8 @@ def game():
         elif keys[K_DOWN]:
             if validPos(grid,shapes[0],i,j,'down'):
                 i+=1
-##        elif keys[K_UP]:
-##            shape=rotate(shape)
+        elif keys[K_UP]:
+            shape=rotate(shape)
                 
         if checkEndGame(grid):
             gameState=False
@@ -316,12 +295,7 @@ def game():
         addShape(shape,grid,i,j)
         display.flip()
         myClock.tick(24) 
-    #move the shape by checking collision etc.
-    #creae shape variable store shape
-    #control the falling of the shape with speed
-    #control the rotation of the peice 
-    #make peice fall faster if key is held
-    #then draw everything 
+
 
 #-----------------------------------------------------------------------# 
 running=True
@@ -360,13 +334,13 @@ while running:
         if validPos(grid,shape,i,j,'right'):
             j+=1
             direction='right'
-##    if direction=='right' or direction=='left' or direction=='down':
-##        if j>0 and j<20:
-##            j-=1
-##            i+=1
+    if direction=='right' or direction=='left' or direction=='down':
+        if j>0 and j<20:
+            j-=1
+            i+=1
             
-##    elif keys[K_UP]:
-##        shape=rotate(shape)
+    elif keys[K_UP]:
+        shape=rotate(shape)
 
 
 
